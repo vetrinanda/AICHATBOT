@@ -1,117 +1,104 @@
 # AI Chatbot Assistant
 
-A modern, intelligent chatbot application built with **FastAPI**, **LangChain**, and **Google Generative AI**. This project features a robust Python backend and a sleek, responsive frontend interface.
+A lightweight chatbot application using FastAPI, LangChain, and Google Generative AI. The repo contains a Python backend and a minimal frontend under `Frontend/` for local testing.
 
 ![Project Status](https://img.shields.io/badge/status-active-success.svg)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.109%2B-009688.svg)
 
-## 🌟 Features
+## Features
 
-- **Intelligent Conversations**: Powered by Google's Gemini models via LangChain.
-- **Context Awareness**: Maintains chat history for more natural interactions (session-based).
-- **Modern UI**:
-  - Dark mode aesthetic with glassmorphism effects.
-  - Responsive design for mobile and desktop.
-  - Real-time typing indicators.
-  - Markdown rendering for rich text responses.
-- **Robust Backend**: Built on FastAPI for high performance and easy API extension.
+- Intelligent conversations via LangChain + Google Generative AI (Gemini-compatible)
+- Session-aware chat history (simple in-memory/session handling)
+- Minimal responsive frontend with Markdown rendering
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Backend**: Python, FastAPI, Uvicorn
-- **AI/LLM**: LangChain, Google Generative AI (Gemini)
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript (No heavy frameworks)
-- **Package Manager**: `uv` (recommended) or `pip`
+- **Backend**: Python, FastAPI (served directly or with Uvicorn)
+- **AI/LLM**: LangChain + Google Generative AI
+- **Frontend**: HTML, CSS, Vanilla JavaScript
 
-## 🚀 Getting Started
+## Getting Started
 
-Follow these instructions to get the project up and running on your local machine.
+These instructions assume you're working from the repository root: `d:\Projects\AICHATBOT`.
 
 ### Prerequisites
 
-- Python 3.10 or higher
-- A Google Cloud API Key for Gemini (Generative AI)
-- [uv](https://github.com/astral-sh/uv) (optional, but recommended for fast dependency management)
+- Python 3.10 or newer
+- A Google Cloud API Key for Generative AI (Gemini)
 
-### Installation
+### Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd <your-repo-name>
-   ```
+1. Create environment file
 
-2. **Set up the environment**
-   
-   Create a `.env` file in the root directory based on `.env.example`:
-   ```bash
-   cp .env.example .env
-   ```
-   
-   Open `.env` and add your API key:
-   ```env
-   GOOGLE_API_KEY=your_google_api_key_here
-   MODEL_NAME=gemini-pro
-   TEMPERATURE=0.7
-   ```
+   - Cross-platform (PowerShell / Unix):
 
-3. **Install Dependencies**
+     ```powershell
+     copy .env.example .env
+     ```
 
-   Using `uv` (Recommended):
-   ```bash
-   uv sync
-   # OR if you just want to install from requirements
-   uv pip install -r requirements.txt
-   ```
+   - Edit `.env` and add your credentials:
 
-   Using standard `pip`:
-   ```bash
+     ```env
+     GOOGLE_API_KEY=your_google_api_key_here
+     MODEL_NAME=gemini-pro
+     TEMPERATURE=0.7
+     ```
+
+2. Install Python dependencies
+
+   ```powershell
    pip install -r requirements.txt
    ```
 
-### 🏃‍♂️ Running the Application
+   (If you use `uv`, you can also run `uv sync` or `uv pip install -r requirements.txt`.)
 
-1. **Start the Backend Server**
-   ```bash
-   # Using uv
-   uv run main.py
-   
-   # OR using python directly
+### Running the app
+
+1. Start the backend API (development)
+
+   ```powershell
    python main.py
    ```
-   The server will start at `http://localhost:8000`.
 
-2. **Launch the Frontend**
-   - Navigate to the `Frontend` folder.
-   - Open `index.html` in your web browser.
-   - Start chatting!
+   Or run with `uv` if configured:
 
-## 📁 Project Structure
+   ```powershell
+   uv run main.py
+   ```
+
+   By default the API listens on `http://localhost:8000` unless configured otherwise.
+
+2. Open the frontend
+
+   - Open `Frontend\index.html` in your browser to interact with the UI.
+
+## Project Structure
 
 ```
+.
 ├── agents/
-│   └── agent.py          # LangChain agent logic and memory management
+│   ├── __init__.py      # agents package
+│   └── chat.py          # chat/agent logic used by the backend
 ├── Frontend/
-│   ├── index.html        # Main chat interface
-│   ├── style.css         # Styling and animations
-│   └── script.js         # Frontend logic and API integration
-├── main.py               # FastAPI application entry point
-├── requirements.txt      # Python dependencies
-├── .env                  # Environment variables (Ignored by Git)
-└── README.md             # Project documentation
+│   ├── index.html       # minimal chat UI
+│   ├── script.js        # frontend API integration + UI logic
+│   └── style.css        # styling
+├── main.py              # FastAPI application entry point
+├── pyproject.toml       # project metadata (optional)
+├── requirements.txt     # Python dependencies
+├── README.md            # this file
+└── .env                # environment variables (ignored by VCS)
 ```
 
-## 🤝 Contributing
+## Notes
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+- The backend entry point is `main.py` and bot/agent logic is in `agents/chat.py`.
+- Keep API keys out of source control—use `.env` and add it to `.gitignore`.
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## Contributing
 
-## 📄 License
+Contributions welcome. Create a branch, make changes, and open a pull request.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## License
+
+This project is provided under the MIT license.
