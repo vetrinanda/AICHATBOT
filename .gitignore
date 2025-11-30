@@ -1,0 +1,22 @@
+.env
+.venv
+# dependencies
+/node_modules
+/.pnpm-store
+.python-version
+pyproject.toml
+uv.lock
+__pycache__
+__init__.py
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
+*.log
+*.tmp
