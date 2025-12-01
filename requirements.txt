@@ -6,3 +6,5 @@ langchain
 langchain-core
 langchain-community
 langchain-litellm
+scikit-learn
+langchain-google-genai
