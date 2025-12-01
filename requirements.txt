@@ -8,3 +8,5 @@ langchain-community
 langchain-litellm
 scikit-learn
 langchain-google-genai
+faiss-cpu
+langchain-classic

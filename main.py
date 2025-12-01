@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from agents.chat import simple_chat
+from agents.rag import rag_chat
 from pydantic import BaseModel
 
 app = FastAPI()
