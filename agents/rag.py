@@ -8,8 +8,16 @@ from langchain_classic.chains import RetrievalQA
 import os
 load_dotenv()
 
-loader=TextLoader('input.txt')
-documents=loader.load()
+from pathlib import Path
+
+# Load `input.txt` relative to this script so the loader works regardless of CWD
+BASE_DIR = Path(__file__).parent
+INPUT_PATH = BASE_DIR / "input.txt"
+if not INPUT_PATH.exists():
+    raise FileNotFoundError(f"Required file not found: {INPUT_PATH}")
+
+loader = TextLoader(str(INPUT_PATH))
+documents = loader.load()
 
 text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 docs=text_splitter.split_documents(documents)
