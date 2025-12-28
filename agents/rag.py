@@ -8,43 +8,46 @@ from langchain_classic.chains import RetrievalQA
 import os
 load_dotenv()
 
-from pathlib import Path
+# from pathlib import Path
 
 # Load `input.txt` relative to this script so the loader works regardless of CWD
-BASE_DIR = Path(__file__).parent
-INPUT_PATH = BASE_DIR / "input.txt"
-if not INPUT_PATH.exists():
-    raise FileNotFoundError(f"Required file not found: {INPUT_PATH}")
+# BASE_DIR = Path(__file__).parent
+# INPUT_PATH = BASE_DIR / "input.txt"
+# if not INPUT_PATH.exists():
+#     raise FileNotFoundError(f"Required file not found: {INPUT_PATH}")
 
-loader = TextLoader(str(INPUT_PATH))
-documents = loader.load()
-
-text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-docs=text_splitter.split_documents(documents)
+# loader = TextLoader(str(INPUT_PATH))
+# documents = loader.load()
 
 embeddings = GoogleGenerativeAIEmbeddings(
     google_api_key=os.getenv("API_KEY"),
     model="models/gemini-embedding-exp-03-07")
 
-
-vectorstore=FAISS.from_documents(docs, embeddings)
-
-retriever=vectorstore.as_retriever()
-
-
 model=GoogleGenerativeAI(
     google_api_key=os.getenv("API_KEY"),
-    model="gemini-2.5-flash"
+    model="gemini-3-flash-preview"
 )
 
 
-chain=RetrievalQA.from_chain_type(
-    llm=model,
-    retriever=retriever
-)
+def rag_chat(documents,query):
+    text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    if isinstance(documents, str):
+        docs = text_splitter.create_documents([documents])
+    else:
+        docs = text_splitter.split_documents(documents)
+    vectorstore=FAISS.from_documents(docs, embeddings)
+    retriever=vectorstore.as_retriever()
 
-query="Explain the key concepts discussed about AI?"
-response=chain.invoke(query)
+    chain=RetrievalQA.from_chain_type(
+        llm=model,
+        retriever=retriever
+    )
+    response=chain.invoke(query)
+    answer=response["result"]
+    return answer
 
-print("Response:")
-print(response["result"])
+
+
+
+# print("Response:")
+# print(response["result"])

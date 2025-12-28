@@ -10,3 +10,5 @@ scikit-learn
 langchain-google-genai
 faiss-cpu
 langchain-classic
+pydantic-ai
+youtube_transcript_api
