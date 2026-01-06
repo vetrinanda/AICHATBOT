@@ -12,3 +12,6 @@ faiss-cpu
 langchain-classic
 pydantic-ai
 youtube_transcript_api
+sqlalchemy  
+databases[sqlite]
+aiosqlite

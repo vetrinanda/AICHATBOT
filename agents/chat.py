@@ -5,6 +5,27 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
 import os
 from dotenv import load_dotenv
+from sqlalchemy import Session
+import app.models as models
+from app.database import SessionLocal, engine,Base
+from uuid import UUID
+from pydantic import BaseModel
+
+
+class ChatSession(BaseModel):
+    session_id: UUID
+    user_message: str 
+    bot_response: str  
+    
+models.Base.metadata.create_all(bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 load_dotenv()     
 
@@ -15,7 +36,8 @@ llm = ChatLiteLLM(
 )
 
 store = {}
-def get_history(session_id: str):
+def get_history(session_id: str) -> ChatMessageHistory:
+    session_id=ChatSession.session_id
     if session_id not in store:
         store[session_id] = ChatMessageHistory()
     return store[session_id]
