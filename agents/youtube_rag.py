@@ -68,3 +68,20 @@ def extract_video_information(video_input,question):
 
 #answer=extract_video_information(video_input,question)
 #print(f"Answer:{answer}")
+
+
+
+
+# from pydantic_ai import Agent,VideoUrl
+# from pydantic_ai.models.google import GoogleModel
+# from pydantic_ai.providers.google import GoogleProvider
+# provider = GoogleProvider(api_key=os.getenv("API_KEY"))
+# model = GoogleModel('gemini-3-flash-preview', provider=provider)
+# agent = Agent(model)
+# result = agent.run_sync(
+#     [
+#         'What is this video about?',
+#         VideoUrl(url='https://www.youtube.com/watch?v=qh_BkTaC3Cw'),
+#     ]
+# )
+# print(result.output)

@@ -8,3 +8,9 @@ class ChatHistory(Base):
     session_id: str = Column(String, index=True)
     user_message: str = Column(Text, nullable=False)
     bot_response: str = Column(Text, nullable=False)
+    
+class ChatBot(Base):
+    __tablename__="chat_bots"
+    id: int = Column(Integer, primary_key=True, index=True)
+    user: str = Column(Text,  index=True)
+    airesponse: str = Column(Text, nullable=False)
