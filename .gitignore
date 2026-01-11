@@ -38,6 +38,7 @@ yarn-error.log*
 .pnpm-store/
 package-lock.json
 yarn.lock
+.vite/
 
 # Build outputs
 /build
